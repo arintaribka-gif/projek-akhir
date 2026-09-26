@@ -1,0 +1,28 @@
+{
+  "validCandidate": {
+    "candidateName": "John",
+    "clickMatchText": "John Doe"
+  },
+  "jobTitleFilter": {
+    "jobTitle": "QA Engineer"
+  },
+  "statusFilter": {
+    "status": "Interview Scheduled"
+  },
+  "invalidCandidate": {
+    "candidateName": "zzzNotExistCandidateXyz"
+  },
+  "validCandidateSearch": {
+    "candidateName": "John",
+    "clickMatchText": "John Doe"
+  },
+  "newCandidate": {
+    "firstName": "Test",
+    "lastName": "Automation",
+    "email": "test.automation@example.com"
+  },
+  "expectedMessages": {
+    "successToast": "Successfully Saved",
+    "invalidMessage": "Invalid"
+  }
+}

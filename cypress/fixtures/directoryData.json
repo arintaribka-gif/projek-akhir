@@ -1,0 +1,25 @@
+{
+  "validEmployee": {
+    "employeeName": "Peter",
+    "clickMatchText": "Anderson",
+    "expectedNameContains": "Peter"
+  },
+  "invalidEmployee": {
+    "employeeName": "zzzNotExistEmployeeXyz"
+  },
+  "jobTitleFilter": {
+    "jobTitle": "QA Engineer"
+  },
+  "locationFilter": {
+    "location": "New York Sales Office"
+  },
+  "combinedFilter": {
+    "employeeName": "Peter",
+    "clickMatchText": "Anderson",
+    "jobTitle": "Chief Financial Officer",
+    "location": "New York Sales Office"
+  },
+  "expectedMessages": {
+    "noRecords": "No Records Found"
+  }
+}

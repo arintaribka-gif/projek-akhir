@@ -1,0 +1,24 @@
+{
+  "validUser": {
+    "username": "Admin",
+    "password": "admin123"
+  },
+  "invalidPassword": {
+    "username": "Admin",
+    "password": "wrongPassword123"
+  },
+  "invalidUsername": {
+    "username": "NotRegisteredUser",
+    "password": "admin123"
+  },
+  "emptyCredential": {
+    "username": "",
+    "password": ""
+  },
+  "expectedMessages": {
+    "invalidCredential": "Invalid credentials",
+    "requiredField": "Required",
+    "dashboardTitle": "Dashboard",
+    "resetPasswordTitle": "Reset Password"
+  }
+}

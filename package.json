@@ -1,0 +1,18 @@
+{
+  "name": "orangehrm-cypress-pom",
+  "version": "1.0.0",
+  "description": "Cypress POM automation - Login, Directory, Recruitment (OrangeHRM Demo)",
+  "scripts": {
+    "cy:open": "cypress open",
+    "cy:run": "cypress run",
+    "cy:run:login": "cypress run --spec cypress/e2e/login.cy.js",
+    "cy:run:directory": "cypress run --spec cypress/e2e/directory.cy.js",
+    "cy:run:recruitment": "cypress run --spec cypress/e2e/recruitment.cy.js"
+  },
+  "devDependencies": {
+    "cypress": "^13.6.0"
+  },
+  "allowScripts": {
+    "cypress@13.17.0": true
+  }
+}
