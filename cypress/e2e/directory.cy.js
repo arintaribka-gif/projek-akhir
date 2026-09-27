@@ -1,10 +1,4 @@
 import DirectoryPage from "../support/directoryPagePOM";
-import {
-  interceptDirectoryGrid,
-  interceptDirectorySuggest,
-  interceptJobTitleList,
-  interceptLocationList,
-} from "../support/directoryIntercepts";
 
 describe("Feature: Directory", () => {
   let loginData;
@@ -16,10 +10,7 @@ describe("Feature: Directory", () => {
   });
 
   beforeEach(() => {
-    interceptDirectoryGrid();
-    interceptDirectorySuggest();
-    interceptJobTitleList();
-    interceptLocationList();
+    DirectoryPage.setupIntercepts();
 
     cy.loginAsAdmin(loginData.validUser.username, loginData.validUser.password);
 
@@ -69,7 +60,7 @@ describe("Feature: Directory", () => {
     DirectoryPage.searchByEmployeeNameNotFound(
       dirData.invalidEmployee.employeeName,
     );
-    DirectoryPage.assertInvalidEmployeeMessage(); // ganti dari assertNoRecordsFound
+    DirectoryPage.assertInvalidEmployeeMessage();
   });
 
   it("TC07 - Tombol Reset mengembalikan filter ke kondisi awal", () => {

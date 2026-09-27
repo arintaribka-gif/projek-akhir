@@ -7,7 +7,7 @@
     "jobTitle": "QA Engineer"
   },
   "statusFilter": {
-    "status": "Interview Scheduled"
+    "status": "Application Initiated"
   },
   "invalidCandidate": {
     "candidateName": "zzzNotExistCandidateXyz"

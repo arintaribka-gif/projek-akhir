@@ -2,6 +2,10 @@
  * Page Object - Login Page
  * https://opensource-demo.orangehrmlive.com/web/index.php/auth/login
  */
+import {
+  interceptLoginRequest,
+  interceptDashboardIndex,
+} from "./loginIntercepts";
 
 class LoginPage {
   // ---------- Locators ----------
@@ -9,17 +13,24 @@ class LoginPage {
     usernameInput: () => cy.get('input[name="username"]'),
     passwordInput: () => cy.get('input[name="password"]'),
     loginButton: () => cy.get('button[type="submit"]'),
-    errorMessage: () => cy.get('.oxd-alert-content-text'),
-    requiredFieldError: () => cy.get('.oxd-input-group__message'),
-    dashboardHeader: () => cy.get('.oxd-topbar-header-breadcrumb h6'),
-    orangeHrmLogo: () => cy.get('.orangehrm-login-branding img'),
-    forgotPasswordLink: () => cy.contains('p', 'Forgot your password'),
-    resetPasswordTitle: () => cy.get('.orangehrm-forgot-password-title'),
+    errorMessage: () => cy.get(".oxd-alert-content-text"),
+    requiredFieldError: () => cy.get(".oxd-input-group__message"),
+    dashboardHeader: () => cy.get(".oxd-topbar-header-breadcrumb h6"),
+    orangeHrmLogo: () => cy.get(".orangehrm-login-branding img"),
+    forgotPasswordLink: () => cy.contains("p", "Forgot your password"),
+    resetPasswordTitle: () => cy.get(".orangehrm-forgot-password-title"),
   };
+
+  // ---------- Setup ----------
+  setupIntercepts() {
+    interceptLoginRequest();
+    interceptDashboardIndex();
+    return this;
+  }
 
   // ---------- Actions ----------
   visit() {
-    cy.visit('/web/index.php/auth/login');
+    cy.visit("/web/index.php/auth/login");
     return this;
   }
 
@@ -52,36 +63,48 @@ class LoginPage {
 
   // ---------- Assertions ----------
   assertLoginSuccess(dashboardTitle) {
-    cy.url().should('include', '/dashboard/index');
-    this.elements.dashboardHeader().should('be.visible').and('contain.text', dashboardTitle);
+    cy.url().should("include", "/dashboard/index");
+    this.elements
+      .dashboardHeader()
+      .should("be.visible")
+      .and("contain.text", dashboardTitle);
     return this;
   }
 
   assertErrorMessage(message) {
-    this.elements.errorMessage().should('be.visible').and('contain.text', message);
+    this.elements
+      .errorMessage()
+      .should("be.visible")
+      .and("contain.text", message);
     return this;
   }
 
   assertRequiredFieldVisible() {
-    this.elements.requiredFieldError().should('have.length.greaterThan', 0);
+    this.elements.requiredFieldError().should("have.length.greaterThan", 0);
     return this;
   }
 
   assertStillOnLoginPage() {
-    cy.url().should('include', '/auth/login');
+    cy.url().should("include", "/auth/login");
     return this;
   }
 
   assertLoginFormVisible() {
-    this.elements.orangeHrmLogo().should('be.visible');
-    this.elements.usernameInput().should('be.visible');
-    this.elements.passwordInput().should('be.visible');
-    this.elements.loginButton().should('be.visible').and('contain.text', 'Login');
+    this.elements.orangeHrmLogo().should("be.visible");
+    this.elements.usernameInput().should("be.visible");
+    this.elements.passwordInput().should("be.visible");
+    this.elements
+      .loginButton()
+      .should("be.visible")
+      .and("contain.text", "Login");
     return this;
   }
 
   assertForgotPasswordPage(title) {
-    this.elements.resetPasswordTitle().should('be.visible').and('contain.text', title);
+    this.elements
+      .resetPasswordTitle()
+      .should("be.visible")
+      .and("contain.text", title);
     return this;
   }
 }

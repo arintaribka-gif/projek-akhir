@@ -5,10 +5,6 @@
  */
 
 import LoginPage from "../support/loginPagePOM";
-import {
-  interceptLoginRequest,
-  interceptDashboardIndex,
-} from "../support/loginIntercepts";
 
 describe("Feature: Login", () => {
   let data;
@@ -20,8 +16,7 @@ describe("Feature: Login", () => {
   });
 
   beforeEach(() => {
-    interceptLoginRequest();
-    interceptDashboardIndex();
+    LoginPage.setupIntercepts();
     LoginPage.visit();
   });
 

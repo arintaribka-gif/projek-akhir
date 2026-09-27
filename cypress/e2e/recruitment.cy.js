@@ -5,30 +5,23 @@
  */
 
 import RecruitmentPage from "../support/recruitmentPagePOM";
-import {
-  interceptCandidateSearch,
-  interceptVacancyList,
-  interceptAddCandidate,
-} from "../support/recruitmentIntercepts";
 
 describe("Feature: Recruitment", () => {
   let loginData;
-  let recruitmentData; // ganti dari recruitData
+  let recruitmentData;
 
   before(() => {
     cy.fixture("loginData").then((f) => (loginData = f));
-    cy.fixture("recruitmentData").then((f) => (recruitmentData = f)); // ganti juga di sini
+    cy.fixture("recruitmentData").then((f) => (recruitmentData = f));
   });
 
   beforeEach(() => {
-    interceptCandidateSearch();
-    interceptVacancyList();
-    interceptAddCandidate();
+    RecruitmentPage.setupIntercepts();
 
     cy.loginAsAdmin(loginData.validUser.username, loginData.validUser.password);
 
     RecruitmentPage.visit();
-    cy.wait("@candidateSearch"); // consume request awal (unfiltered, limit=50&offset=0), WAJIB sebelum test body
+    cy.wait("@candidateSearch");
     cy.wait("@vacancyList");
   });
 
@@ -38,8 +31,8 @@ describe("Feature: Recruitment", () => {
 
   it("TC02 - Pencarian candidate berdasarkan nama valid", () => {
     RecruitmentPage.searchByCandidateName(
-      recruitmentData.validCandidate.candidateName, // teks yang diketik, misal "John"
-      recruitmentData.validCandidate.clickMatchText, // teks match di dropdown, misal "John Doe"
+      recruitmentData.validCandidate.candidateName,
+      recruitmentData.validCandidate.clickMatchText,
     );
     RecruitmentPage.assertResultsContainName(
       recruitmentData.validCandidate.candidateName,
@@ -50,11 +43,10 @@ describe("Feature: Recruitment", () => {
     RecruitmentPage.selectJobTitle(recruitmentData.jobTitleFilter.jobTitle);
     RecruitmentPage.clickSearch();
     cy.wait("@candidateSearch").its("response.statusCode").should("eq", 200);
-    // Tidak assert jumlah data, karena data demo publik bisa kosong sewaktu-waktu
   });
 
   it("TC04 - Pencarian candidate berdasarkan Status", () => {
-    RecruitmentPage.selectStatus(recruitmentData.statusFilter.status); // ganti recruitData
+    RecruitmentPage.selectStatus(recruitmentData.statusFilter.status);
     RecruitmentPage.clickSearch();
     cy.wait("@candidateSearch").its("response.statusCode").should("eq", 200);
     RecruitmentPage.assertResultCountAtLeast(1);
@@ -73,7 +65,7 @@ describe("Feature: Recruitment", () => {
   it("TC06 - Tombol Reset mengembalikan filter pencarian ke kondisi awal", () => {
     RecruitmentPage.searchByCandidateName(
       recruitmentData.validCandidateSearch.candidateName,
-      recruitmentData.validCandidateSearch.clickMatchText, // tambahkan ini
+      recruitmentData.validCandidateSearch.clickMatchText,
     );
     RecruitmentPage.clickReset();
     RecruitmentPage.assertFiltersReset();
@@ -81,13 +73,13 @@ describe("Feature: Recruitment", () => {
 
   it("TC07 - Menambahkan candidate baru dengan data valid", () => {
     RecruitmentPage.clickAdd();
-    RecruitmentPage.fillCandidateForm(recruitmentData.newCandidate); // ganti recruitData
+    RecruitmentPage.fillCandidateForm(recruitmentData.newCandidate);
     RecruitmentPage.clickSave();
     cy.wait("@addCandidate")
       .its("response.statusCode")
       .should("be.oneOf", [200, 201]);
     RecruitmentPage.assertAddCandidateSuccess(
-      recruitmentData.expectedMessages.successToast, // ganti recruitData
+      recruitmentData.expectedMessages.successToast,
     );
   });
 

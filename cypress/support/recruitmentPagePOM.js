@@ -2,6 +2,11 @@
  * Page Object - Recruitment Page
  * https://opensource-demo.orangehrmlive.com/web/index.php/recruitment/viewCandidates
  */
+import {
+  interceptCandidateSearch,
+  interceptVacancyList,
+  interceptAddCandidate,
+} from "./recruitmentIntercepts";
 
 class RecruitmentPage {
   // ---------- Locators ----------
@@ -29,6 +34,14 @@ class RecruitmentPage {
     successToast: () => cy.get(".oxd-toast-content"),
   };
 
+  // ---------- Setup ----------
+  setupIntercepts() {
+    interceptCandidateSearch();
+    interceptVacancyList();
+    interceptAddCandidate();
+    return this;
+  }
+
   // ---------- Actions ----------
   visit() {
     cy.visit("/web/index.php/recruitment/viewCandidates");
@@ -52,13 +65,13 @@ class RecruitmentPage {
     return this;
   }
   selectJobTitle(jobTitle) {
-    this.elements.selectInputs().eq(0).click(); // index 0 = Job Title
+    this.elements.selectInputs().eq(0).click();
     this.elements.dropdownOption(jobTitle).click();
     return this;
   }
 
   selectStatus(status) {
-    this.elements.selectInputs().eq(3).click(); // index 3 = Status, BUKAN .last()
+    this.elements.selectInputs().eq(3).click();
     this.elements.dropdownOption(status).click();
     return this;
   }
@@ -126,6 +139,7 @@ class RecruitmentPage {
       .and("contain.text", message);
     return this;
   }
+
   assertInvalidCandidateMessage() {
     this.elements.invalidFieldMessage().should("be.visible");
     return this;

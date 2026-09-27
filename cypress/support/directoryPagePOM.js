@@ -2,6 +2,12 @@
  * Page Object - Directory Page
  * https://opensource-demo.orangehrmlive.com/web/index.php/directory/viewDirectory
  */
+import {
+  interceptDirectoryGrid,
+  interceptDirectorySuggest,
+  interceptJobTitleList,
+  interceptLocationList,
+} from "./directoryIntercepts";
 
 class DirectoryPage {
   // ---------- Locators ----------
@@ -20,6 +26,15 @@ class DirectoryPage {
     noRecordsFound: () => cy.contains(".oxd-text", "No Records Found"),
     pageHeader: () => cy.get(".oxd-topbar-header-breadcrumb h6"),
   };
+
+  // ---------- Setup ----------
+  setupIntercepts() {
+    interceptDirectoryGrid();
+    interceptDirectorySuggest();
+    interceptJobTitleList();
+    interceptLocationList();
+    return this;
+  }
 
   // ---------- Actions ----------
   visit() {
@@ -75,7 +90,7 @@ class DirectoryPage {
         expect($els.first().text()).to.include(partialName);
       },
       { timeout: 15000 },
-    ); // kasih waktu ekstra buat retry DOM, TANPA cy.wait network
+    );
     return this;
   }
 
@@ -101,6 +116,7 @@ class DirectoryPage {
     this.elements.pageHeader().should("be.visible").and("contain.text", title);
     return this;
   }
+
   assertInvalidEmployeeMessage() {
     this.elements.invalidFieldMessage().should("be.visible");
     return this;
