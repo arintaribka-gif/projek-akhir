@@ -64,7 +64,10 @@ describe("Feature: Directory", () => {
   });
 
   it("TC07 - Tombol Reset mengembalikan filter ke kondisi awal", () => {
-    DirectoryPage.elements.employeeNameInput().clear().type("Peter");
+    DirectoryPage.elements
+      .employeeNameInput()
+      .clear()
+      .type(dirData.validEmployee.employeeName);
     DirectoryPage.clickReset();
     DirectoryPage.assertFiltersReset();
   });

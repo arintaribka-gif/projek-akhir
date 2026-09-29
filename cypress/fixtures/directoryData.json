@@ -1,8 +1,8 @@
 {
   "validEmployee": {
-    "employeeName": "Peter",
-    "clickMatchText": "Anderson",
-    "expectedNameContains": "Peter"
+    "employeeName": "Anderson",
+    "clickMatchText": "Anderson wyn",
+    "expectedNameContains": "Anderson"
   },
   "invalidEmployee": {
     "employeeName": "zzzNotExistEmployeeXyz"
@@ -11,13 +11,13 @@
     "jobTitle": "QA Engineer"
   },
   "locationFilter": {
-    "location": "New York Sales Office"
+    "location": "Texas R&D"
   },
   "combinedFilter": {
-    "employeeName": "Peter",
-    "clickMatchText": "Anderson",
-    "jobTitle": "Chief Financial Officer",
-    "location": "New York Sales Office"
+    "employeeName": "Anderson",
+    "clickMatchText": "Anderson wyn",
+    "jobTitle": "Automaton Tester",
+    "location": "Texas R&D"
   },
   "expectedMessages": {
     "noRecords": "No Records Found"
